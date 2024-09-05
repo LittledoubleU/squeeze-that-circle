@@ -47,7 +47,24 @@ section.start {
 }
 
 section.game {
-    display: block;
+    display: none;
+}
+
+.alert {
+    display: none;
+    z-index: 3;
+    position: absolute;
+    background-color: var(--bg-color);
+    width: 30%;
+    aspect-ratio: 1;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 5em;
+    padding: 0.25em 0.55em;
+    span {
+        display: block;
+    }
 }
 
 .title {
@@ -61,6 +78,7 @@ section.game {
 }
 
 .selector {
+    z-index: 2;
     width: 25%;
     display: flex;
     flex-direction: column;
@@ -80,6 +98,20 @@ section.game {
     /* Underline the selected text */
     .input-radio input:checked + label {
         border-bottom: 0.08em dashed var(--font-color);
+    }
+
+    .input-radio label:hover, input.start-btn:hover {
+        opacity: 0.5;
+    }
+
+    input.start-btn {
+        /* margin-top: 2%;
+        margin-left: 5%; */
+        font-size: 1.5em;
+        width: 38%;
+        border-color: transparent;
+        background-color: transparent;
+        color: var(--color);
     }
 }
 
