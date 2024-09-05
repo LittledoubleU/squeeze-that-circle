@@ -1,0 +1,281 @@
+:root {
+    --white-color: white;
+    --black-color: #000000;
+    --light-blue: #ffffff;
+
+    --font-color: var(--white-color);
+    --bg-color: var(--black-color);
+
+    /* display */
+    --display-color: var(--white-color);
+    --display-2-color: var(--light-blue);
+    --border-size: 0.5em;
+    --border-radius: 2em;
+
+    /* entity */
+    --entity-color: var(--white-color);
+}
+
+body {
+    --color: var(--font-color);
+    --blur-radius: 2.5px;
+
+    color: var(--color);
+
+    background-color: var(--bg-color);
+    font-family: handjet, sans-serif;
+
+    filter: drop-shadow(0 0 var(--blur-radius) var(--color)) drop-shadow(0 0 calc(var(--blur-radius)*2) var(--color));
+    
+    h1 {
+        --glowing-width: 2px;
+        letter-spacing: 0.1em;
+    }
+
+}
+
+.bg {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+}
+
+section.start {
+    display: block;
+}
+
+section.game {
+    display: block;
+}
+
+.title {
+    width: 30%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    font-size: 4rem;
+    padding: 0 0.5em 1em 0.5em;
+    margin-left: 10%;
+}
+
+.selector {
+    width: 25%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 0 0.5em 3.5em 0.5em;
+    margin-left: 1.5%;
+    font-size: 2.5em;
+
+    ul {
+        margin-bottom: 5%;
+    }
+
+    p {
+        font-size: 2.5em;
+    }
+
+    /* Underline the selected text */
+    .input-radio input:checked + label {
+        border-bottom: 0.08em dashed var(--font-color);
+    }
+}
+
+.container {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+}
+
+.container.center {
+    justify-content: center;
+}
+
+.container-display {
+    width: 50%;
+    display: flex;
+    position: relative;
+    opacity: 0.85;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 1.5em;
+
+    .display {
+        width: 60%;
+        aspect-ratio: 1;
+        border: var(--border-size) solid var(--display-color);
+        border-radius: 2em;
+        background-color: transparent;
+    
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        grid-template-rows: repeat(3, 1fr);
+        
+    }
+
+
+}
+
+.container-stats {
+    width: 30%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 5em;
+    text-align: center;
+}
+
+@keyframes glowingEffect{
+    from {
+        --color: transparent;
+    } to {
+        --color: white;
+    }
+}
+
+.hole {
+    --glowing-width: 0.5em;
+    --color: var(--display-color);
+
+    position: relative;
+
+    div {
+        position: absolute;
+    }
+
+    .dirt {
+        border-radius: 1em;
+        border-top: var(--glowing-width) solid var(--color);
+        --border-size: var(--glowing-width);
+    }
+
+    .h .dirt:nth-child(1) {
+        width: 40%;
+        bottom: 10%;
+        left: 10%;
+        rotate: -12.5deg;
+    }
+
+    .h .dirt:nth-child(2) {
+        width: 25%;
+        bottom: 10%;
+        right: 33%;
+        rotate: 7.5deg;
+    }
+
+    .h .dirt:nth-child(3) {
+        width: 13%;
+        bottom: 10%;
+        right: 26%;
+        rotate: 52.5deg;
+    }
+
+    .h .dirt:nth-child(4) {
+        width: 27%;
+        bottom: 10%;
+        right: 9%;
+        rotate: 17.5deg;
+    }
+
+    .h .dirt::before, .h .dirt::after {
+        position: absolute;
+        content: "";
+        width: 2.5%;
+        aspect-ratio: 1;
+        border: var(--border-size) solid var(--color);
+        border-radius: 50%;
+    }
+
+    
+    /* dusting from hole */
+    .h .dirt:nth-child(1)::before {
+        transform: translate(-50%, -250%);
+    }
+
+    .h .dirt:nth-child(2)::before {
+        transform: translate(-150%, -750%);
+    }
+
+    .h .dirt:nth-child(3)::before {
+        transform: translate(-450%, -350%);
+    }
+
+    .h .dirt:nth-child(4)::before {
+        transform: translate(50%, -350%);
+    }
+
+    .h .dirt:nth-child(1)::after {
+        transform: translate(50%, 10%);
+    }
+
+    .h .dirt:nth-child(2)::after {
+        transform: translate(50%, -50%);
+    }
+
+    .h .dirt:nth-child(3)::after {
+        transform: translate(100%, -200%);
+    }
+
+    .h .dirt:nth-child(4)::after {
+        transform: translate(-50%, -250%);
+    }
+    
+    .entity {
+        --color: var(--entity-color);
+
+        border: var(--glowing-width) solid var(--color);
+        width: 50%;
+        aspect-ratio: 1;
+        left: 50%;
+        top: 50;
+        transform: translate(-50%, 50%);
+    }
+
+    .entity.circle {
+        border-radius: 50%;
+    }
+
+    .entity::before, .entity::after {
+        position: absolute;
+        content: "";
+        width: 5%;
+        aspect-ratio: 1;
+        border: var(--border-size) solid var(--color);
+        border-radius: 50%;
+        top: 10%;
+    }
+
+    .entity::before {
+        left: 5%;
+    }
+
+    .entity::after {
+        right: 5%;
+    }
+    
+    .entity.square {
+        border-radius: 1em;
+    }
+}
+
+/* default stage */
+.hole {
+    .bg.e {
+        display: none;
+    }
+
+    .bg.h .dirt::after, .bg.h .dirt::before{
+        display: none;
+    }
+}
+
+/* stage 2 debuff */
+section {
+    --color: white;
+    --blur-radius: 0px; /* 2.5px - 10px*/
+    
+    filter: blur(var(--blur-radius));
+}
