@@ -18,7 +18,7 @@
 
 body {
     --color: var(--font-color);
-    --blur-radius: 2.5px;
+    --blur-radius: 2.5px; /* make it 1.5 on section.game */
 
     color: var(--color);
 
@@ -98,6 +98,10 @@ section.game {
     /* Underline the selected text */
     .input-radio input:checked + label {
         border-bottom: 0.08em dashed var(--font-color);
+        animation-name: textChecked;
+        animation-duration: 2s;
+        animation-timing-function: steps(2);
+        animation-iteration-count: infinite;
     }
 
     .input-radio label:hover, input.start-btn:hover {

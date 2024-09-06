@@ -1,0 +1,7 @@
+@keyframes textChecked {
+    from {
+        border-bottom: 0.08em dashed var(--font-color);
+    } to {
+        border-bottom: 0;
+    }
+}
