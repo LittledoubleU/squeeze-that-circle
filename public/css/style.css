@@ -303,7 +303,7 @@ section.game {
         display: none;
     }
 
-    .bg.h .dirt::after, .bg.h .dirt::before{
+    .bg.h{
         display: none;
     }
 }
