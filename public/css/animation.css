@@ -5,3 +5,23 @@
         border-bottom: 0;
     }
 }
+
+@keyframes idleMonster {
+    from {
+        transform: translate(-50%, 180%);
+        clip-path: inset(0 0 100% 0);
+    } to {
+        transform: translate(-50%, 60%);
+        clip-path: inset(0);
+    }
+}
+
+@keyframes hole {
+    0% {
+        transform: translate(-5%);
+    } 50% {
+        transform: translate(5%);
+    } 100% {
+        transform: translate(0%, 0%);
+    }
+}

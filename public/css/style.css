@@ -99,7 +99,7 @@ section.game {
     .input-radio input:checked + label {
         border-bottom: 0.08em dashed var(--font-color);
         animation-name: textChecked;
-        animation-duration: 2s;
+        animation-duration: 1.5s;
         animation-timing-function: steps(2);
         animation-iteration-count: infinite;
     }
@@ -188,6 +188,13 @@ section.game {
         --border-size: var(--glowing-width);
     }
 
+    .h {
+        animation-name: hole;
+        animation-duration: 1s;
+        animation-direction: alternate;
+        animation-timing-function: steps(3);
+    }
+
     .h .dirt:nth-child(1) {
         width: 40%;
         bottom: 10%;
@@ -217,6 +224,7 @@ section.game {
     }
 
     .h .dirt::before, .h .dirt::after {
+        display: none;
         position: absolute;
         content: "";
         width: 2.5%;
@@ -261,13 +269,17 @@ section.game {
     
     .entity {
         --color: var(--entity-color);
-
         border: var(--glowing-width) solid var(--color);
         width: 50%;
         aspect-ratio: 1;
         left: 50%;
-        top: 50;
-        transform: translate(-50%, 50%);
+        top: 0;
+        /* transform: translate(-50%, 50%); */
+        animation-name: idleMonster;
+        animation-duration: 1.25s;
+        animation-direction: alternate;
+        animation-timing-function: ease-in-out;
+        animation-iteration-count: infinite;
     }
 
     .entity.circle {
@@ -301,10 +313,18 @@ section.game {
 .hole {
     .bg.e {
         display: none;
+        z-index: 10;
     }
 
     .bg.h{
         display: none;
+    }
+
+    .mutation {
+        /* mutatation color */
+        --color: rgb(255, 197, 97);
+        --blur-radius: 2.5px;
+        filter: drop-shadow(0 0 var(--blur-radius) var(--color)) drop-shadow(0 0 calc(var(--blur-radius)*2) var(--color));
     }
 }
 
