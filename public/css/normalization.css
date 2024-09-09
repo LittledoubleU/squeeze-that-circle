@@ -409,3 +409,8 @@
   -webkit-user-select: none;
   -ms-user-select: none;
 }
+
+h2 {
+  margin: 0;
+  padding: 0;
+}

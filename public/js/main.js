@@ -18,7 +18,8 @@ function gameInit(difficulty) {
   let multiplier = stage * difficulty;
   let delay = speedStage(multiplier);
   let score = 0;
-  return {playerHealth, minimumMonsterDamage, stage, difficulty, multiplier, delay, score};
+  let totalMonster = 0;
+  return {playerHealth, minimumMonsterDamage, stage, difficulty, multiplier, delay, score, totalMonster};
 }
 
 function stageMultiplier(stage, difficulty) {
@@ -133,10 +134,12 @@ function displayMonster(monster, disappearTime, gameState) {
       console.log("Circle clicked!");
       // Reward player, e.g., increase score
       gameState.score += 100;
+      updateStatus(gameState);
     } else if (monster.typeMons === 'square') {
       console.log("Square clicked! Damage: ", monster.damageMons);
       // Subtract health by the square's damage
       gameState.playerHealth -= monster.damageMons;
+      updateStatus(gameState);
       console.log("Player Health: ", gameState.playerHealth);
     }
 
@@ -150,6 +153,7 @@ function displayMonster(monster, disappearTime, gameState) {
       // If the circle wasn't clicked before disappearing, reduce player health
       console.log("Circle missed! Reducing health.");
       gameState.playerHealth--; // Subtract health for missing the circle
+      updateStatus(gameState);
       console.log("Player Health: ", gameState.playerHealth);
     }
 
@@ -157,6 +161,13 @@ function displayMonster(monster, disappearTime, gameState) {
     $(`.hole:nth-child(${tile})`).off('click'); // Remove click event
 
   }, disappearTime); // The time after which the monster disappears
+}
+
+function updateStatus(gameState) {
+  $('.container-stats span#heart').html(gameState.playerHealth);
+  $('.container-stats span#score').html(gameState.score);
+  $('.container-stats span#stage').html(gameState.stage);
+  $('.container-stats span#monster').html(gameState.totalMonster);
 }
 
 $('section.start .start-btn').on('click', function () {
@@ -172,8 +183,10 @@ $('section.start .start-btn').on('click', function () {
         console.log("Game Over");
         return; // Exit if all stages are completed
       }
-    
+
       let totalMonster = totalMonsterOnStage(gameState.stage, gameState.difficulty);
+      gameState.totalMonster = totalMonster;
+      updateStatus(gameState);
       let monsters = createMonster(gameState);
       let monstersQueue = [...monsters]; // Make a copy to process
     
@@ -191,6 +204,7 @@ $('section.start .start-btn').on('click', function () {
             if (gameState.playerHealth <= 0 ) {
               clearInterval(spawnInterval);
               console.log("UwU you died.")
+              //you swap the gameover
             }
           } else {
             // If the tile is occupied, push the monster back to the end of the queue
