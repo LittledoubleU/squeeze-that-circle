@@ -119,6 +119,14 @@ function checkTile(monster) {
   return $(`.hole:nth-child(${tile})`).hasClass('active');
 }
 
+function resetTile(monster) {
+  // Get tile
+  let tile = monster.spawnMons;
+
+  // Reset the active class to mark the tile as available again
+  $(`.hole:nth-child(${tile})`).removeClass("active");
+}
+
 function displayMonster(monster, disappearTime, gameState) {
   // Immediately show the monster
   appearMonster(monster);
@@ -151,6 +159,7 @@ function displayMonster(monster, disappearTime, gameState) {
   setTimeout(() => {
     if (!isClicked && monster.typeMons === 'circle') {
       // If the circle wasn't clicked before disappearing, reduce player health
+      console.log('Monster clicked:', monster);
       console.log("Circle missed! Reducing health.");
       gameState.playerHealth--; // Subtract health for missing the circle
       updateStatus(gameState);
@@ -218,19 +227,20 @@ $('section.start .start-btn').on('click', function () {
         if (monstersQueue.length > 0) {
           // Attempt to spawn a monster
           let monster = monstersQueue.shift(); // Get the next monster in the queue
-    
-          if (!checkTile(monster)) {
+          if (!(checkTile(monster))) {
             let disappearTime = gameState.delay * 1.75; // Adjust how long the monster stays visible
             displayMonster(monster, disappearTime, gameState);
             if (gameState.playerHealth <= 0 ) {
               clearInterval(spawnInterval);
               console.log("UwU you died.")
-              gameOver()
+              gameOver();
               //you swap the gameover
             }
           } else {
             // If the tile is occupied, push the monster back to the end of the queue
             monstersQueue.push(monster);
+            // I forgot to reset the hole.
+            resetTile(monster);
           }
         } else {
           clearInterval(spawnInterval); // Stop spawning monsters after all are displayed
