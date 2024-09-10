@@ -38,7 +38,7 @@ function totalMonsterOnStage(stage,  difficulty) {
 function spawnMonster(multiplier) {
   // Spawn both circle and square here uwu
   // Spawn one time per function
-  const type = Math.random() < (0.8 ** multiplier) ? 'circle' : 'square'; // 80% circle:1, 20% square:2
+  const type = Math.random() < 0.8 ? 'circle' : 'square'; // 80% circle:1, 20% square:2
   // Spawn on random tile
   const spawn = getRandomInt(9) + 1;
   if (type == 'square') {
@@ -168,6 +168,24 @@ function updateStatus(gameState) {
   $('.container-stats span#score').html(gameState.score);
   $('.container-stats span#stage').html(gameState.stage);
   $('.container-stats span#monster').html(gameState.totalMonster);
+  $('.container-stats span#multiplier').html(gameState.multiplier);
+}
+
+function updateStage(gameState) {
+  if (gameState.stage == 2) {
+    $('.display').attr('id', 'stage2');
+  } else if (gameState.stage == 3) {
+    $('.display').attr('id', 'stage3');
+  } else if (gameState.stage == 4) {
+    $('.display').attr('id', 'stage4');
+  } else if (gameState.stage == 5) {
+    $('.display').attr('id', 'stage5');
+  }
+}
+
+function gameOver() {
+  $('section.game').css({"display": "none"});
+  $('section.gameover').css({"display": "block"});
 }
 
 $('section.start .start-btn').on('click', function () {
@@ -181,11 +199,14 @@ $('section.start .start-btn').on('click', function () {
     function playStage() {
       if (gameState.stage > 5) {
         console.log("Game Over");
+        gameOver()
         return; // Exit if all stages are completed
       }
 
       let totalMonster = totalMonsterOnStage(gameState.stage, gameState.difficulty);
       gameState.totalMonster = totalMonster;
+      gameState.multiplier = stageMultiplier(gameState.stage, gameState.difficulty);
+      updateStage(gameState);
       updateStatus(gameState);
       let monsters = createMonster(gameState);
       let monstersQueue = [...monsters]; // Make a copy to process
@@ -199,11 +220,12 @@ $('section.start .start-btn').on('click', function () {
           let monster = monstersQueue.shift(); // Get the next monster in the queue
     
           if (!checkTile(monster)) {
-            let disappearTime = gameState.delay * 1.25; // Adjust how long the monster stays visible
+            let disappearTime = gameState.delay * 1.75; // Adjust how long the monster stays visible
             displayMonster(monster, disappearTime, gameState);
             if (gameState.playerHealth <= 0 ) {
               clearInterval(spawnInterval);
               console.log("UwU you died.")
+              gameOver()
               //you swap the gameover
             }
           } else {

@@ -25,3 +25,47 @@
         transform: translate(0%, 0%);
     }
 }
+
+@keyframes stage2 {
+    from {
+        filter: blur(0);
+    } to {
+        filter: blur(10px);
+    }
+}
+
+@keyframes stage3 {
+    0% {
+        transform: translate(25%, -10%);
+    } 25% {
+        transform: translate(-10%, 20%);
+    } 75% {
+        transform: translate(15%, 15%);
+    } 100% {
+        transform: translate(-7%, -12%);
+    }
+}
+
+@keyframes stage4 {
+    from {
+        transform: rotate(360deg);
+    } to {
+        transform: rotate(0deg);
+    }
+}
+
+@keyframes stage5 {
+    00% {
+        filter: blur(0);
+        rotate: 360deg;
+        transform: translate(25%, -10%);
+    } 25% {
+        transform: translate(-10%, 20%);
+    } 75% {
+        transform: translate(15%, 15%);
+    } 100% {
+        transform: translate(-7%, -12%);
+        rotate: 0deg;
+        filter: blur(10px);
+    }
+}
