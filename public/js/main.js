@@ -197,6 +197,21 @@ function gameOver() {
   $('section.gameover').css({"display": "block"});
 }
 
+function neutralizeMonsPos(monsters) {
+  for (let i = 1; i < monsters.length; i++) {
+    if (monsters[i].spawnMons === monsters[i-1].spawnMons) {
+      let newValue;
+      do {
+        newValue = getRandomInt(9) + 1; // 1-9
+      } while (newValue === monsters[i].spawnMons);
+
+      monsters[i].spawnMons = newValue;
+    } 
+  }
+
+  return monsters;
+}
+
 $('section.start .start-btn').on('click', function () {
   if (difficulty === undefined) {
     difficulty = handleDifficultyChange(difficulty);
@@ -218,6 +233,7 @@ $('section.start .start-btn').on('click', function () {
       updateStage(gameState);
       updateStatus(gameState);
       let monsters = createMonster(gameState);
+      monsters = neutralizeMonsPos(monsters); // don't let consecutive elements in an array have the same value
       let monstersQueue = [...monsters]; // Make a copy to process
     
       console.log(`Stage ${gameState.stage}`, totalMonster, monsters, gameState.delay);
