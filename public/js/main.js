@@ -1,4 +1,4 @@
-const totalStage = 6;
+const totalStage = 7;
 
 function getRandomInt(max) {
     return Math.floor(Math.random() * max);
@@ -188,7 +188,7 @@ function updateStatus(gameState) {
 
 function updateStage(gameState) {
   //test 
-  gameState.stage = 8;
+  // gameState.stage = 8;
   $('.display').attr('id', `stage${gameState.stage}`);
   $('.hole').attr('id', `hole${gameState.stage}`);
 }
