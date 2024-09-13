@@ -1,3 +1,5 @@
+const totalStage = 6;
+
 function getRandomInt(max) {
     return Math.floor(Math.random() * max);
   }
@@ -32,7 +34,7 @@ function getScore() {
 
 function totalMonsterOnStage(stage,  difficulty) {
   // total monsters in stage
-  return Math.ceil(stage*4.5) + Math.floor(1.5*difficulty);
+  return Math.floor((Math.ceil(stage*4.5) + Math.floor(1.5*difficulty))*1.5);
 }
 
 function spawnMonster(multiplier) {
@@ -98,7 +100,11 @@ function disappearMonster(monster) {
 
 function speedStage (multiplier) {
   // monster spawn delay in milisecond unit (ms)
-  return ((2.5 - (0.15 * multiplier)) * 1000)/(multiplier*0.75);
+  let speed = ((2.5 - (0.15 * multiplier)) * 1000)/(multiplier*0.75);
+  if (speed < 0.1) {
+    speed = 0.1;
+  }
+  return speed;
 }
 
 function createMonster(player) {
@@ -181,15 +187,10 @@ function updateStatus(gameState) {
 }
 
 function updateStage(gameState) {
-  if (gameState.stage == 2) {
-    $('.display').attr('id', 'stage2');
-  } else if (gameState.stage == 3) {
-    $('.display').attr('id', 'stage3');
-  } else if (gameState.stage == 4) {
-    $('.display').attr('id', 'stage4');
-  } else if (gameState.stage == 5) {
-    $('.display').attr('id', 'stage5');
-  }
+  //test 
+  gameState.stage = 8;
+  $('.display').attr('id', `stage${gameState.stage}`);
+  $('.hole').attr('id', `hole${gameState.stage}`);
 }
 
 function gameOver() {
@@ -212,6 +213,10 @@ function neutralizeMonsPos(monsters) {
   return monsters;
 }
 
+function delay(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
 $('section.start .start-btn').on('click', function () {
   if (difficulty === undefined) {
     difficulty = handleDifficultyChange(difficulty);
@@ -221,7 +226,7 @@ $('section.start .start-btn').on('click', function () {
     var gameState = gameInit(difficulty);
 
     function playStage() {
-      if (gameState.stage > 5) {
+      if (gameState.stage > totalStage) {
         console.log("Game Over");
         gameOver()
         return; // Exit if all stages are completed
@@ -238,7 +243,7 @@ $('section.start .start-btn').on('click', function () {
     
       console.log(`Stage ${gameState.stage}`, totalMonster, monsters, gameState.delay);
     
-      let spawnInterval = setInterval(() => {
+      let spawnInterval = setInterval(async () => {
         // Checking Player's health after clicking.
         if (monstersQueue.length > 0) {
           // Attempt to spawn a monster
@@ -260,7 +265,9 @@ $('section.start .start-btn').on('click', function () {
           }
         } else {
           clearInterval(spawnInterval); // Stop spawning monsters after all are displayed
+
           gameState.stage++;
+          await delay(3000);
           playStage(); // Proceed to the next stage after all monsters are spawned
         }
       }, gameState.delay); // Time delay between spawning each monster

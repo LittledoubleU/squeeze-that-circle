@@ -55,7 +55,42 @@
 }
 
 @keyframes stage5 {
-    00% {
+    0% {
+        background-color: transparent;
+    } 80% {
+        background-color: white;
+    }
+}
+
+@keyframes stage6 {
+    0% {
+        clip-path: inset(0);
+    } 25% {
+        clip-path: inset(0 50% 0 0);
+    } 75% {
+        clip-path: inset(0);
+    } 100% {
+        clip-path: inset(0 0 0 50%);
+    }
+}
+
+@keyframes stage7 {
+    /* for entity uwu*/
+    0% {
+        rotate: 360deg;
+        transform: translate(50%, -20%);
+    } 25% {
+        transform: translate(-10%, 40%);
+    } 75% {
+        transform: translate(15%, 30%);
+    } 100% {
+        transform: translate(-35%, -30%);
+        rotate: 0deg;
+    }
+}
+
+@keyframes stage8 {
+    0% {
         filter: blur(0);
         rotate: 360deg;
         transform: translate(25%, -10%);
@@ -63,9 +98,40 @@
         transform: translate(-10%, 20%);
     } 75% {
         transform: translate(15%, 15%);
+    } 95%{
+        background-color: transparent;
     } 100% {
         transform: translate(-7%, -12%);
         rotate: 0deg;
         filter: blur(10px);
+        background-color: white;
+    }
+}
+
+@keyframes entity8 {
+    0% {
+        rotate: 0deg;
+        clip-path: inset(0);
+        transform: translate(5%, -20%);
+    } 25% {
+        transform: translate(-16%, 10%);
+        clip-path: inset(0 50% 0 0);
+    } 75% {
+        transform: translate(30%, 5%);
+        clip-path: inset(0);
+    } 100% {
+        transform: translate(-9%, -22%);
+        rotate: 360deg;
+        clip-path: inset(0 0 0 50%);
+    }
+}
+
+@keyframes blinking {
+    0% {
+        clip-path: inset(0 0 100% 0);
+    } 40% {
+        clip-path: inset(0);
+    } 100% {
+        clip-path: inset(0);
     }
 }

@@ -45,6 +45,43 @@ body {
 
 section.start {
     display: block;
+    .logo {
+        position: relative;
+        --border-size: 2.5rem;
+        --color: var(--entity-color);
+        width: 35%;
+        margin-top: 1%;
+        margin-left: 5%;
+        aspect-ratio: 1;
+        border-radius: 50%;
+        background-color: transparent;
+        border: var(--border-size) solid var(--color);
+    }
+
+    .logo::before, .logo::after {
+        content: "";
+        position: absolute;
+        border-radius: 50%;
+        width: 20%;
+        aspect-ratio: 1;
+        background-color: var(--entity-color);
+        top: 20%;
+
+        animation-name: blinking;
+        animation-duration: 3.5s;
+        animation-timing-function: ease-in-out;
+        animation-iteration-count: infinite;
+        animation-direction: alternate-reverse;
+    }
+
+    .logo::after {
+        left: 20%;
+    }
+
+    .logo::before {
+        right: 20%;
+    }
+    
 }
 
 section.game {
@@ -354,7 +391,7 @@ section {
 #stage2 {
     /* container-display */
     animation-name: stage2;
-    animation-duration: 5s;
+    animation-duration: 4s;
     animation-timing-function: ease-in-out;
     animation-iteration-count: infinite;
     animation-direction: alternate;
@@ -363,7 +400,7 @@ section {
 #stage3 {
     /* container-display */
     animation-name: stage3;
-    animation-duration: 7.5s;
+    animation-duration: 3.5s;
     animation-timing-function: ease-in-out;
     animation-iteration-count: infinite;
     animation-direction: alternate;
@@ -372,19 +409,59 @@ section {
 #stage4 {
     /* container-display */
     animation-name: stage4;
-    animation-duration: 12.5s;
+    animation-duration: 6.5s;
     animation-timing-function: ease-in-out;
     animation-iteration-count: infinite;
     animation-direction: alternate;
 }
 
+#stage7 {
+    /* container-display */
+    animation-name: stage7;
+    animation-duration: 5.5s;
+    animation-timing-function: ease;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+}
+
+#hole7 {
+    animation-name: stage7;
+    animation-duration: 2.5s;
+    animation-iteration-count: infinite;
+    animation-direction: alternate-reverse;
+}
+
 #stage5 {
     /* container-display */
     animation-name: stage5;
-    animation-duration: 7.5s;
+    animation-duration: 1s;
+    animation-timing-function: ease-in;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+}
+
+#hole6 {
+    animation-name: stage6;
+    animation-duration: 3.5s;
+    animation-timing-function: ease-in;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+}
+
+#stage8 {
+    animation-name: stage8;
+    animation-duration: 4.5s;
     animation-timing-function: ease-in-out;
     animation-iteration-count: infinite;
     animation-direction: alternate;
+}
+
+#hole8 {
+    animation-name: entity8;
+    animation-duration: 2.5s;
+    animation-timing-function: ease-in-out;
+    animation-iteration-count: infinite;
+    animation-direction: alternate-reverse;
 }
 
 section.gameover {
