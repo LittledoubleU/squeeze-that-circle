@@ -476,11 +476,11 @@ section.gameover {
     }
 
     p {
-        font-size: 10em;
+        font-size: 7em;
         font-weight: 900;
     }
 
-    .status-endgame, h2 {
+    .status-endgame {
         font-size: small;
         border-color: transparent;
     }

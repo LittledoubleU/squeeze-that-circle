@@ -34,7 +34,7 @@ function getScore() {
 
 function totalMonsterOnStage(stage,  difficulty) {
   // total monsters in stage
-  return Math.floor((Math.ceil(stage*4.5) + Math.floor(1.5*difficulty))*1.5);
+  return Math.floor((Math.ceil(stage*4.5) + Math.floor(1.5*difficulty))*1.25);
 }
 
 function spawnMonster(multiplier) {
@@ -179,18 +179,23 @@ function displayMonster(monster, disappearTime, gameState) {
 }
 
 function updateStatus(gameState) {
-  $('.container-stats span#heart').html(gameState.playerHealth);
-  $('.container-stats span#score').html(gameState.score);
-  $('.container-stats span#stage').html(gameState.stage);
-  $('.container-stats span#monster').html(gameState.totalMonster);
-  $('.container-stats span#multiplier').html(gameState.multiplier);
+  $('span#heart').html(gameState.playerHealth);
+  $('span#score').html(gameState.score);
+  $('span#stage').html(gameState.stage);
+  $('span#monster').html(gameState.totalMonster);
+  $('span#multiplier').html(gameState.multiplier);
 }
 
 function updateStage(gameState) {
   //test 
-  // gameState.stage = 8;
-  $('.display').attr('id', `stage${gameState.stage}`);
-  $('.hole').attr('id', `hole${gameState.stage}`);
+  // gameState.stage = 7;
+  let id = gameState.stage;
+  //random stage in endless uwu.
+  if (gameState > totalStage) {
+    id = getRandomInt(totalStage);
+  }
+  $('.display').attr('id', `stage${id}`);
+  $('.hole').attr('id', `hole${id}`);
 }
 
 function gameOver() {
@@ -226,9 +231,11 @@ $('section.start .start-btn').on('click', function () {
     var gameState = gameInit(difficulty);
 
     function playStage() {
-      if (gameState.stage > totalStage) {
+      //endless gameplay
+      if (gameState.playerHealth <= 0) {
         console.log("Game Over");
-        gameOver()
+        updateStatus(gameState);
+        gameOver();
         return; // Exit if all stages are completed
       }
 
