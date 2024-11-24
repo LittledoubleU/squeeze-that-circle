@@ -1,2 +1,2 @@
 # squeeze-that-circle
-I made it for fun uwu
+# Enter: https://littledoubleu.github.io/squeeze-that-circle/views/index (Only support landscape orientation)
